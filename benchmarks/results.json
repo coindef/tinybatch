@@ -5,57 +5,57 @@
   },
   "model": "Qwen/Qwen2.5-0.5B-Instruct",
   "config": {
-    "n_requests": 24,
+    "n_requests": 32,
     "gang_size": 8,
     "block_size": 16,
     "num_blocks": 768
   },
   "gang_static": {
-    "wall_s": 24.36,
-    "output_tokens": 1327,
-    "throughput_tok_s": 54.5,
-    "mean_ttft_s": 9.9,
-    "mean_completion_s": 15.14,
-    "p99_completion_s": 24.36
+    "wall_s": 46.47,
+    "output_tokens": 2439,
+    "throughput_tok_s": 52.5,
+    "mean_ttft_s": 14.11,
+    "mean_completion_s": 19.9,
+    "p99_completion_s": 42.76
   },
   "continuous": {
-    "wall_s": 20.87,
-    "output_tokens": 1326,
-    "throughput_tok_s": 63.5,
-    "mean_ttft_s": 1.02,
-    "mean_completion_s": 14.63,
-    "p99_completion_s": 20.87,
+    "wall_s": 37.04,
+    "output_tokens": 2438,
+    "throughput_tok_s": 65.8,
+    "mean_ttft_s": 1.13,
+    "mean_completion_s": 19.28,
+    "p99_completion_s": 37.04,
     "preemptions": 0
   },
   "prefix": {
     "prefix_cache_on": {
-      "wall_s": 10.7,
+      "wall_s": 10.33,
       "output_tokens": 768,
-      "throughput_tok_s": 71.8,
-      "mean_ttft_s": 0.79,
-      "mean_completion_s": 10.7,
-      "p99_completion_s": 10.7,
+      "throughput_tok_s": 74.3,
+      "mean_ttft_s": 0.46,
+      "mean_completion_s": 10.33,
+      "p99_completion_s": 10.33,
       "prompt_tokens": 2182,
       "prefill_tokens_computed": 486,
       "prefix_hit_rate": 0.883
     },
     "prefix_cache_off": {
-      "wall_s": 10.87,
+      "wall_s": 10.62,
       "output_tokens": 768,
-      "throughput_tok_s": 70.7,
-      "mean_ttft_s": 0.98,
-      "mean_completion_s": 10.83,
-      "p99_completion_s": 10.87,
+      "throughput_tok_s": 72.3,
+      "mean_ttft_s": 0.53,
+      "mean_completion_s": 10.58,
+      "p99_completion_s": 10.62,
       "prompt_tokens": 2182,
       "prefill_tokens_computed": 2182,
       "prefix_hit_rate": 0.0
     }
   },
   "speedup": {
-    "throughput_x": 1.17,
+    "throughput_x": 1.25,
     "mean_completion_x": 1.03,
-    "p99_completion_x": 1.17,
+    "p99_completion_x": 1.15,
     "prefill_reduction_pct": 77.7,
-    "ttft_x": 1.24
+    "ttft_x": 1.15
   }
 }
