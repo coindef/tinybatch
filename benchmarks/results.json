@@ -1,0 +1,61 @@
+{
+  "hardware": {
+    "chip": "Apple M5",
+    "platform": "macOS-26.2-arm64-arm-64bit"
+  },
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "config": {
+    "n_requests": 24,
+    "gang_size": 8,
+    "block_size": 16,
+    "num_blocks": 768
+  },
+  "gang_static": {
+    "wall_s": 24.36,
+    "output_tokens": 1327,
+    "throughput_tok_s": 54.5,
+    "mean_ttft_s": 9.9,
+    "mean_completion_s": 15.14,
+    "p99_completion_s": 24.36
+  },
+  "continuous": {
+    "wall_s": 20.87,
+    "output_tokens": 1326,
+    "throughput_tok_s": 63.5,
+    "mean_ttft_s": 1.02,
+    "mean_completion_s": 14.63,
+    "p99_completion_s": 20.87,
+    "preemptions": 0
+  },
+  "prefix": {
+    "prefix_cache_on": {
+      "wall_s": 10.7,
+      "output_tokens": 768,
+      "throughput_tok_s": 71.8,
+      "mean_ttft_s": 0.79,
+      "mean_completion_s": 10.7,
+      "p99_completion_s": 10.7,
+      "prompt_tokens": 2182,
+      "prefill_tokens_computed": 486,
+      "prefix_hit_rate": 0.883
+    },
+    "prefix_cache_off": {
+      "wall_s": 10.87,
+      "output_tokens": 768,
+      "throughput_tok_s": 70.7,
+      "mean_ttft_s": 0.98,
+      "mean_completion_s": 10.83,
+      "p99_completion_s": 10.87,
+      "prompt_tokens": 2182,
+      "prefill_tokens_computed": 2182,
+      "prefix_hit_rate": 0.0
+    }
+  },
+  "speedup": {
+    "throughput_x": 1.17,
+    "mean_completion_x": 1.03,
+    "p99_completion_x": 1.17,
+    "prefill_reduction_pct": 77.7,
+    "ttft_x": 1.24
+  }
+}

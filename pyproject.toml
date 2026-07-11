@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tinybatch"
+version = "0.1.0"
+description = "A miniature vLLM-style LLM inference engine: paged KV cache, continuous batching, prefix caching, streaming."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "torch>=2.2",
+    "transformers>=4.40",
+    "huggingface_hub>=0.23",
+    "safetensors>=0.4",
+]
+
+[project.optional-dependencies]
+server = ["fastapi>=0.110", "uvicorn>=0.29"]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
