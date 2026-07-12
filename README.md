@@ -44,6 +44,12 @@ Not vibes — tests (`pytest`, 18 passing):
 
 Absolute numbers are laptop-scale; the *phenomena* (HOL blocking, prefill reuse) are the same ones production engines exploit on H100s.
 
+## Tensor parallelism
+
+`python benchmarks/tp_bench.py --tp 2` — [Megatron-style](https://arxiv.org/abs/1909.08053) tensor parallelism for the Qwen2 forward pass in [tensor_parallel.py](src/tinybatch/tensor_parallel.py): q/k/v and gate/up projections column-sharded (each rank owns a slice of the heads), o_proj and down_proj row-sharded, so each transformer layer costs **exactly two all-reduces** (`torch.distributed`, gloo — the same collective semantics NCCL provides on GPUs).
+
+Verified, not asserted: the CI-safe test proves the 2-process sharded forward reproduces the single-process forward on a synthetic model (and asserts the all-reduce call/byte counts analytically); on real 0.5B weights, 100% argmax agreement with max logit deviation 3e-4 (fp32 summation-order noise). A 256-token prefill moves **42 MB** of all-reduce traffic (2 × layers × tokens × d_model × 4 B) — on one machine that's 7% of wall time over loopback; at scale that formula is your NVLink/InfiniBand budget.
+
 ## Run it
 
 ```bash

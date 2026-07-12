@@ -1,0 +1,14 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "tp_degree": 2,
+  "prefill_tokens": 256,
+  "logits_match_single_process": true,
+  "argmax_agreement": 1.0,
+  "max_abs_logit_diff": 0.000306,
+  "single_process_forward_s": 0.341,
+  "tp_rank0_wall_s": 0.456,
+  "allreduce_calls": 48,
+  "allreduce_mb_total": 42.0,
+  "comm_seconds": 0.032,
+  "comm_fraction_of_wall": 0.07
+}
