@@ -18,7 +18,7 @@ jobs:
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -e ".[dev]"
       - name: Unit tests (no model download)
-        run: pytest tests/test_block_manager.py tests/test_scheduler.py -q
+        run: pytest tests/test_block_manager.py tests/test_scheduler.py tests/test_tensor_parallel.py -q
 
   # The full correctness suite (logits parity vs HuggingFace) downloads the
   # 1 GB Qwen2.5-0.5B checkpoint, so it runs only when manually requested.
