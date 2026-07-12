@@ -1,5 +1,7 @@
 # tinybatch
 
+[![tests](https://github.com/coindef/tinybatch/actions/workflows/tests.yml/badge.svg)](https://github.com/coindef/tinybatch/actions/workflows/tests.yml)
+
 A miniature vLLM-style LLM inference engine — small enough to read in an afternoon, real enough to serve [Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct) on a laptop.
 
 Implements, from scratch, the three ideas that define modern LLM serving:
@@ -22,7 +24,25 @@ Not vibes — tests (`pytest`, 18 passing):
 
 ## Benchmarks
 
-`python benchmarks/bench.py` — results on this machine in [benchmarks/results.json](benchmarks/results.json). See the numbers table there for gang-scheduled (static) vs continuous batching throughput/p99, and prefix-caching prefill reduction and TTFT gains.
+`python benchmarks/bench.py` — full data in [benchmarks/results.json](benchmarks/results.json). Apple M5, MPS/fp16, Qwen2.5-0.5B-Instruct; 32 requests submitted at once with a realistic high-variance output mix (16–256 tokens).
+
+**Continuous vs gang-scheduled (static) batching** — the win is head-of-line blocking removed:
+
+| metric | gang (batch=8) | continuous | gain |
+|---|---:|---:|---:|
+| mean TTFT | 14.11 s | **1.13 s** | **12.5×** |
+| throughput | 52.5 tok/s | **65.8 tok/s** | 1.25× |
+| p99 completion | 42.8 s | **37.0 s** | 1.15× |
+
+**Prefix caching** — 24 requests sharing one system prompt:
+
+| metric | cache off | cache on |
+|---|---:|---:|
+| prefill tokens computed | 2,182 | **486 (−77.7%)** |
+| block hit rate | — | **88.3%** |
+| mean TTFT | 0.53 s | **0.46 s** |
+
+Absolute numbers are laptop-scale; the *phenomena* (HOL blocking, prefill reuse) are the same ones production engines exploit on H100s.
 
 ## Run it
 
@@ -30,6 +50,7 @@ Not vibes — tests (`pytest`, 18 passing):
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e ".[server,dev]"
 
+python examples/generate.py         # smallest tour: 3 batched, streamed requests
 pytest                              # correctness suite (downloads the 0.5B model)
 python benchmarks/bench.py          # scheduling + prefix-cache benchmarks
 
